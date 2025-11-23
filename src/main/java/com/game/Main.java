@@ -9,7 +9,38 @@ import java.util.Random;
 
 public class Main
 {
+    static void celebrationDive(short score) throws InterruptedException {
+        blinkLED();
+        int speed;
+        if(score >= 5 && score < 10){
+            speed = score*10;
+        }
+        if(score > 10){
+            speed = 100;
+        }
+        //complete a V shape move with arm length 30 cm
+        blinkLED();
+    }
+    static void blinkLED() throws InterruptedException {
+        Random rand = new Random();
+        int[][] colours = {
+                { 255, 0, 0 }, // Red
+                { 0, 255, 0 }, // Green
+                { 0, 0, 255 }, // Blue
+                { 255, 255, 255 }, // White
+                {255, 255, 0} // yellow
+        };
 
+        //loop 15 times to show 15 random colours
+        for(int i = 0; i < 15; i++){
+            int randomIndex = rand.nextInt(5);
+            swiftBot.fillUnderlights(colours[randomIndex]);
+            Thread.sleep(150);
+        }
+        swiftBot.disableUnderlights();
+
+
+    }
 
     static void printScore(short round, short score)
     {
@@ -113,9 +144,7 @@ public class Main
             }
 
                 round++;
-
         }
-
 
     }
 
