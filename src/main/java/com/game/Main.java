@@ -1,11 +1,12 @@
 package com.game;
 
-import swiftbot.Button;
+
 import swiftbot.SwiftBotAPI;
 import swiftbot.Underlight;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main
 {
@@ -44,11 +45,11 @@ public class Main
 
 
         //ARRAYS USED FOR STORING THE PREVIOUS COLOR SEQUENCE
-        ArrayList<int[]> savedColors = new ArrayList<int[]>();
+        ArrayList<int[]> savedColors = new ArrayList<>();
         ArrayList<Underlight> savedUnderlights = new ArrayList<>();
 
         //control variable for the main game loop
-        boolean finish = false;
+        boolean finish = true;
 
         //Main game loop
         while(finish)
@@ -107,9 +108,30 @@ public class Main
 
 
 
-            if(round == 5)
+            if(round % 5 == 0)
             {
-                System.out.println("Would you like to continue?");
+                Scanner sc = new Scanner(System.in);
+                boolean controlVar = true;
+                while(controlVar)
+                {
+                    System.out.println("Would you like to continue? (Y/N)");
+                    String input = sc.nextLine();
+
+                    if(input.equalsIgnoreCase("N") || input.equalsIgnoreCase("NO") )
+                    {
+                        finish = false;
+                        controlVar = false;
+                    }
+                    else if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("YES"))
+                    {
+                        controlVar = false;
+                    }
+                    else
+                    {
+                        System.out.println("Invalid input! Please try again.");
+                    }
+                }
+
             }
 
                 round++;
@@ -120,4 +142,5 @@ public class Main
     }
 
 }
-
+//git fetch origin
+//git switch --track origin/dev
