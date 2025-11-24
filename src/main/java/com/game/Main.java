@@ -11,14 +11,17 @@ public class Main
 {
     static void celebrationDive(short score) throws InterruptedException {
         blinkLED();
-        int speed;
+        int speed = 0;
         if(score >= 5 && score < 10){
             speed = score*10;
         }
-        if(score > 10){
+        if(score >= 10){
             speed = 100;
         }
         //complete a V shape move with arm length 30 cm
+        swiftBot.move(speed,speed,1800);
+        swiftBot.move(80,0,1500);
+        swiftBot.move(speed,speed,1800);
         blinkLED();
     }
     static void blinkLED() throws InterruptedException {
@@ -30,7 +33,6 @@ public class Main
                 { 255, 255, 255 }, // White
                 {255, 255, 0} // yellow
         };
-
         //loop 15 times to show 15 random colours
         for(int i = 0; i < 15; i++){
             int randomIndex = rand.nextInt(5);
@@ -38,8 +40,6 @@ public class Main
             Thread.sleep(150);
         }
         swiftBot.disableUnderlights();
-
-
     }
 
     static void printScore(short round, short score)
