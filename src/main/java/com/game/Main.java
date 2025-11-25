@@ -262,7 +262,7 @@ public class Main
                 {
                     case FRONT_LEFT:
                         handleButtons(Button.A, savedButtons, index, currentRound, currentScore, controlVar);
-
+                        handleWrongPress(Button.A, currentRound, currentScore);
                         while(controlVar[0])
                         {
                             Thread.sleep(50);
@@ -272,6 +272,7 @@ public class Main
 
                     case BACK_LEFT:
                         handleButtons(Button.B, savedButtons, index, currentRound, currentScore, controlVar);
+                        handleWrongPress(Button.A, currentRound, currentScore);
                         while(controlVar[0])
                         {
                             Thread.sleep(50);
@@ -280,6 +281,7 @@ public class Main
 
                     case FRONT_RIGHT:
                         handleButtons(Button.X, savedButtons, index, currentRound, currentScore, controlVar);
+                        handleWrongPress(Button.A, currentRound, currentScore);
                         while(controlVar[0])
                         {
                             Thread.sleep(50);
@@ -288,6 +290,7 @@ public class Main
 
                     case BACK_RIGHT:
                         handleButtons(Button.Y, savedButtons, index, currentRound, currentScore, controlVar);
+                        handleWrongPress(Button.A, currentRound, currentScore);
                         while(controlVar[0])
                         {
                             Thread.sleep(50);
