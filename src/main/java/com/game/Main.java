@@ -74,12 +74,13 @@ public class Main
         ArrayList<Underlight> savedUnderlights = new ArrayList<>();
         ArrayList<Button> savedButtons = new ArrayList<>();
 
-        //control variable for the main game loop
-        boolean finish = true;
 
         //Main game loop
-        while(finish)
+        while(true)
         {
+
+            printScore(round, score);
+
 
             for(int i = 3; i > 0; i--)
             {
@@ -87,8 +88,6 @@ public class Main
                 Thread.sleep (1000);
             }
 
-
-            printScore(round, score);
 
             final int[][] colors =
             {
@@ -166,8 +165,7 @@ public class Main
                     if(input.equalsIgnoreCase("N") || input.equalsIgnoreCase("NO") )
                     {
                         System.out.println("See you again champ!");
-                        finish = false;
-                        controlVar = false;
+                        System.exit(0);
                     }
                     else if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("YES"))
                     {
