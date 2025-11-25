@@ -2,7 +2,6 @@ package com.game;
 
 
 import swiftbot.Button;
-import swiftbot.ButtonFunction;
 import swiftbot.SwiftBotAPI;
 import swiftbot.Underlight;
 
@@ -12,31 +11,6 @@ import java.util.Scanner;
 
 public class Main
 {
-
-
-    static boolean isButtonCorrect(ArrayList<Button> buttons, Button button , int i, short round, short score)
-    {
-
-        if(buttons.get(i) != button)
-        {
-            System.out.println("Game Over!");
-            printScore(round, score);
-
-            if(score >= 5)
-            {
-                /*
-
-                Place robot dance here
-
-                */
-            }
-
-            System.exit(0);
-
-        }
-
-        return true;
-    }
 
     static void printScore(short round, short score)
     {
