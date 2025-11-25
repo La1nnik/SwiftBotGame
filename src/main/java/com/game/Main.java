@@ -19,6 +19,31 @@ public class Main
         System.out.println("\u001B[35m===============================\u001B[0m\n");
     }
 
+    static void handleButtons(Button button, ArrayList<Button> savedButtons, int index, short currentRound, short currentScore)
+    {
+        swiftBot.enableButton(button,() -> {
+
+            if(savedButtons.get(index) != button)
+            {
+                System.out.println("Game Over!");
+                printScore(currentRound, currentScore);
+
+                if(currentScore >= 5)
+                {
+                            /*
+
+                            Place robot dance here
+
+                            */
+                }
+
+                System.exit(0);
+            }
+
+        });
+    }
+
+
 
     static SwiftBotAPI swiftBot;
 
@@ -118,28 +143,15 @@ public class Main
                 final short currentRound = round;
                 final short currentScore = score;
 
-                swiftBot.enableButton(Button.A,() -> {
+                handleButtons(Button.A, savedButtons, index, currentRound, currentScore);
+                handleButtons(Button.B, savedButtons, index, currentRound, currentScore);
+                handleButtons(Button.X, savedButtons, index, currentRound, currentScore);
+                handleButtons(Button.Y, savedButtons, index, currentRound, currentScore);
 
-                    if(savedButtons.get(index) != Button.A)
-                    {
-                        System.out.println("Game Over!");
-                        printScore(currentRound, currentScore);
 
-                        if(score >= 5)
-                        {
-                            /*
-
-                            Place robot dance here
-
-                            */
-                        }
-
-                        System.exit(0);
-
-                    }
-                });
             }
 
+            score++;
 
 
             if(round % 5 == 0)
@@ -177,5 +189,3 @@ public class Main
     }
 
 }
-//git fetch origin
-//git switch --track origin/dev
