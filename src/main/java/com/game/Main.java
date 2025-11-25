@@ -1,5 +1,4 @@
 package com.game;
-
 import swiftbot.Button;
 import swiftbot.SwiftBotAPI;
 import swiftbot.Underlight;
@@ -68,12 +67,7 @@ public class Main
             {
                 swiftBot.disableAllButtons();
                 swiftBot.disableUnderlights();
-                Thread.sleep(2000);
             }
-        }
-        catch (InterruptedException ie)
-        {
-            Thread.currentThread().interrupt();
         }
         catch (Exception ignored){}
 
