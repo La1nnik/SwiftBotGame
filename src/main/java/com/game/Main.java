@@ -146,7 +146,7 @@ public class Main
         //ARRAYS USED FOR STORING THE PREVIOUS COLOR SEQUENCE
         ArrayList<int[]> savedColors = new ArrayList<>();
         ArrayList<Underlight> savedUnderlights = new ArrayList<>();
-        ArrayList<Button> savedButtons = new ArrayList<>();
+
 
 
         //Main game loop
@@ -181,22 +181,18 @@ public class Main
             if(colors[randomIndex][0] == 255 && colors[randomIndex][1] == 0 )
             {
                 savedUnderlights.add(Underlight.FRONT_LEFT);
-                savedButtons.add(Button.A);
             }
             else if(colors[randomIndex][0] == 0 && colors[randomIndex][1] == 255 )
             {
                 savedUnderlights.add(Underlight.BACK_LEFT);
-                savedButtons.add(Button.B);
             }
             else if(colors[randomIndex][0] == 0 && colors[randomIndex][1] == 0 )
             {
                 savedUnderlights.add(Underlight.FRONT_RIGHT);
-                savedButtons.add(Button.X);
             }
             else
             {
                 savedUnderlights.add(Underlight.BACK_RIGHT);
-                savedButtons.add(Button.Y);
             }
 
 
@@ -212,7 +208,6 @@ public class Main
             //Player enters the color sequence
             for(int i = 0; i < round; i++)
             {
-                final int index = i;
                 final short currentRound = round;
                 final short currentScore = score;
 
