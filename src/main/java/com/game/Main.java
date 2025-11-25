@@ -62,13 +62,25 @@ public class Main
         System.out.println("Game Over!");
         printScore(currentRound, currentScore);
 
+        try
+        {
+            if (swiftBot != null)
+            {
+                swiftBot.disableAllButtons();
+                swiftBot.disableUnderlights();
+                // give Pi4J a short moment to stop input listeners
+                Thread.sleep(200);
+            }
+        }
+        catch (Exception e){}
+
 
         if(currentScore >= 5)
         {
             try {
                 celebrationDive(currentScore);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
         }
 
