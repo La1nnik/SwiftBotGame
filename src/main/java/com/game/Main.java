@@ -1,6 +1,8 @@
 package com.game;
 
 
+import swiftbot.Button;
+import swiftbot.ButtonFunction;
 import swiftbot.SwiftBotAPI;
 import swiftbot.Underlight;
 
@@ -11,6 +13,30 @@ import java.util.Scanner;
 public class Main
 {
 
+
+    static boolean isButtonCorrect(ArrayList<Button> buttons, Button button , int i, short round, short score)
+    {
+
+        if(buttons.get(i) != button)
+        {
+            System.out.println("Game Over!");
+            printScore(round, score);
+
+            if(score >= 5)
+            {
+                /*
+
+                Place robot dance here
+
+                */
+            }
+
+            System.exit(0);
+
+        }
+
+        return true;
+    }
 
     static void printScore(short round, short score)
     {
@@ -47,6 +73,7 @@ public class Main
         //ARRAYS USED FOR STORING THE PREVIOUS COLOR SEQUENCE
         ArrayList<int[]> savedColors = new ArrayList<>();
         ArrayList<Underlight> savedUnderlights = new ArrayList<>();
+        ArrayList<Button> savedButtons = new ArrayList<>();
 
         //control variable for the main game loop
         boolean finish = true;
@@ -82,18 +109,22 @@ public class Main
             if(colors[randomIndex][0] == 255 && colors[randomIndex][1] == 0 )
             {
                 savedUnderlights.add(Underlight.FRONT_LEFT);
+                savedButtons.add(Button.A);
             }
             else if(colors[randomIndex][0] == 0 && colors[randomIndex][1] == 255 )
             {
                 savedUnderlights.add(Underlight.BACK_LEFT);
+                savedButtons.add(Button.B);
             }
             else if(colors[randomIndex][0] == 0 && colors[randomIndex][1] == 0 )
             {
                 savedUnderlights.add(Underlight.FRONT_RIGHT);
+                savedButtons.add(Button.X);
             }
             else
             {
                 savedUnderlights.add(Underlight.BACK_RIGHT);
+                savedButtons.add(Button.Y);
             }
 
 
@@ -105,6 +136,35 @@ public class Main
                 swiftBot.disableUnderlights();
             }
 
+
+            //Player enters the color sequence
+            for(int i = 0; i < round; i++)
+            {
+                final int index = i;
+                final short currentRound = round;
+                final short currentScore = score;
+
+                swiftBot.enableButton(Button.A,() -> {
+
+                    if(savedButtons.get(index) != Button.A)
+                    {
+                        System.out.println("Game Over!");
+                        printScore(currentRound, currentScore);
+
+                        if(score >= 5)
+                        {
+                            /*
+
+                            Place robot dance here
+
+                            */
+                        }
+
+                        System.exit(0);
+
+                    }
+                });
+            }
 
 
 
