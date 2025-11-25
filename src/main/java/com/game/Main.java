@@ -1,4 +1,4 @@
-
+package com.game;
 
 import swiftbot.Button;
 import swiftbot.SwiftBotAPI;
@@ -80,7 +80,83 @@ public class Main
         });
 
     }
+    static void gameOver(short currentRound, short currentScore){
 
+        System.out.println("Game Over!");
+        printScore(currentRound, currentScore);
+
+
+        if(currentScore >= 5)
+        {
+            try {
+                celebrationDive(currentScore);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.exit(0);
+    }
+
+    static void handleWrongPress(Button button, short currentRound, short currentScore)
+    {
+        switch(button)
+        {
+            case Button.A:
+            swiftBot.enableButton(Button.B, () -> {
+                gameOver(currentRound, currentScore);
+            });
+
+            swiftBot.enableButton(Button.X, () -> {
+                gameOver(currentRound, currentScore);
+            });
+
+            swiftBot.enableButton(Button.Y, () -> {
+                gameOver(currentRound, currentScore);
+            });
+
+
+            case Button.B:
+                swiftBot.enableButton(Button.A, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+                swiftBot.enableButton(Button.X, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+                swiftBot.enableButton(Button.Y, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+            case Button.X:
+                swiftBot.enableButton(Button.A, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+                swiftBot.enableButton(Button.B, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+                swiftBot.enableButton(Button.Y, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+            case Button.Y:
+                swiftBot.enableButton(Button.A, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+                swiftBot.enableButton(Button.B, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+
+                swiftBot.enableButton(Button.X, () -> {
+                    gameOver(currentRound, currentScore);
+                });
+        }
+
+    }
 
 
     static SwiftBotAPI swiftBot;
@@ -186,10 +262,12 @@ public class Main
                 {
                     case FRONT_LEFT:
                         handleButtons(Button.A, savedButtons, index, currentRound, currentScore, controlVar);
+
                         while(controlVar[0])
                         {
                             Thread.sleep(50);
                         }
+                        swiftBot.disableAllButtons();
                         break;
 
                     case BACK_LEFT:
