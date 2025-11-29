@@ -44,7 +44,7 @@ public class Main
     }
 
 
-    static void printScore(short round, short score)
+    static void printScore(short round, short score) throws InterruptedException
     {
         GameUI.typewriter("\n\u001B[35m===============================\u001B[0m", 25);
         GameUI.typewriter("\u001B[35m    \u001B[35mRound: \u001B[35m" + round + "       Score: " + score + "\u001B[35m   \u001B[0m", 25);
@@ -57,7 +57,8 @@ public class Main
 
     }
 
-    static void gameOver(short currentRound, short currentScore){
+    static void gameOver(short currentRound, short currentScore) throws InterruptedException
+    {
 
         GameUI.GameOverAnim();
         printScore(currentRound, currentScore);
@@ -92,7 +93,15 @@ public class Main
             if (b == button) continue;
             try
             {
-                swiftBot.enableButton(b, () -> gameOver(currentRound, currentScore));
+                swiftBot.enableButton(b, () -> {
+                    try
+                    {
+                        gameOver(currentRound, currentScore);
+                    } catch (InterruptedException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
+                });
             }
             catch (IllegalArgumentException ignored) {}
         }
@@ -101,7 +110,7 @@ public class Main
 
     static SwiftBotAPI swiftBot;
 
-    public static void main(String[] args) throws InterruptedException
+    public static void main(String[] args) throws Exception
     {
 
         try
@@ -272,81 +281,3 @@ public class Main
 
 }
 
-class  GameUI{
-
-    final static String PURPLE ="\u001B[35m";
-    final static String CYAN  ="\u001B[36m";
-    final static String GREEN ="\u001B[32m";
-    final static String RED    ="\u001B[31m";
-    final static String YELLOW  ="\u001B[33m";
-    final static String RESET ="\u001B[0m";
-
-
-    static void typewriter(String text, int delay) throws InterruptedException {
-       for(char c : text.toCharArray()) {
-           System.out.print(c);
-           Thread.sleep(delay);
-       }
-       System.out.println();
-    }
-
-    static void LoadingBar() throws InterruptedException {
-        for (int i = 0; i <= 20; i++) {
-            System.out.print("\r" + GREEN + "Loading: ["
-                    + new String(new char[i]).replace("\0", "=")
-                    + new String(new char[20 - i]).replace("\0", " ")
-                    + "] " + (i * 5) + "%" + RESET);
-
-            Thread.sleep(100);
-        }
-        System.out.println("\n");
-    }
-
-
-    static void startCountdown(int sec) throws InterruptedException {
-       for(int i = sec; i > 0; i--){
-           System.out.println("\r" + CYAN + "Starting round in:" + YELLOW + i +"s" + RESET);
-           Thread.sleep(1000);
-       }
-       System.out.println("\n");
-   }
-
-   static void animateGameOver(String art) throws InterruptedException {
-       String[] glow = { RED, PURPLE, CYAN};
-
-       for(int i=0; i<6; i++){
-              System.out.print("\r" + glow[i % glow.length] + art + RESET);
-              Thread.sleep(250);
-       }
-    }
- 
-    public static void showIntroUI() throws Exception{
-
-        String header=
-         "╔═══════════════════════════════════════╗\n" +
-         "║             SWIFTBOT SIMON GAME       ║\n" +
-         "╚═══════════════════════════════════════╝\n";
-
-         for (char ch: header.toCharArray()) {
-             System.out.print(PURPLE + ch + RESET);
-             Thread.sleep(5);
-         }
-
-         typewriter(GREEN + "\n WELCOME, Champ! Get ready..." + RESET, 25);
-            LoadingBar();
-            startCountdown(3);
-    }
-
-    public static void GameOverAnim() throws InterruptedException {
-        String art =
-        "\n███████╗ █████╗ ███╗   ███╗███████╗   ██████╗ ██╗   ██╗███████╗██████╗\n" +
-        "██╔════╝██╔══██╗████╗ ████║██╔════╝     ██╔══██╗██║   ██║██╔════╝██╔══██╗\n" +
-        "█████╗  ███████║██╔████╔██║█████╗       ██████╔╝██║   ██║█████╗  ██████╔╝\n" +
-        "██╔══╝  ██╔══██║██║╚██╔╝██║██╔══╝       ██╔══██╗██║   ██║██╔══╝  ██╔══██╗\n" +
-        "███████╗██║  ██║██║ ╚═╝ ██║███████╗     ██████╔╝╚██████╔╝███████╗██║  ██║\n" +
-        "╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝\n";
-
-        animateGameOver(art);
-        System.out.println(RED + "\n Game Over!" + RESET);
-    }
-}
